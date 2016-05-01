@@ -17,14 +17,12 @@ public class Login{
       
       Require the user to enter a valid password until the correct one is entered or the
       user quits.  The connection object is created within the scope of this function
-      and is passed back to the calling function.
-      
-      NEED TO ADD A NICER INTERFACE
+      and is passed back to the calling function.      
 
     */
-    public Connection processLogin(String username) throws SQLException{
-
-	System.out.printf("\nWelcome %s!  Please enter your password: ", username);
+    public Connection processLogin() throws SQLException{
+	
+	System.out.printf("\nWelcome to Jog Wireless!\n\nPlease enter your password: ");
 	
 	String error = "\nInvalid password.  Please try again: ";
 	String passwd = Jog.verifyInput(error);
@@ -33,7 +31,7 @@ public class Login{
 	while(true){
 	    
 	    try{
-		con = DriverManager.getConnection("jdbc:oracle:thin:@edgar1.cse.lehigh.edu:1521:cse241",username,passwd);
+		con = DriverManager.getConnection("jdbc:oracle:thin:@edgar1.cse.lehigh.edu:1521:cse241","mah318",passwd);
 		break;
 	    }
 	    catch(SQLException ex){			

@@ -12,7 +12,7 @@ class Jog {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException{
 	
-	String username = "mah318";
+
 	
 	try{
 	   Class.forName("oracle.jdbc.driver.OracleDriver");	
@@ -23,7 +23,7 @@ class Jog {
 	   */
 	   
 	   Login userLogin = new Login();
-	   con = userLogin.processLogin(username);
+	   con = userLogin.processLogin();
 	   
 	   /*
 	     
@@ -51,7 +51,8 @@ class Jog {
 	       }
 	       else if(selection.compareTo("2") == 0){
 		   System.out.printf("Processing employee login request...");
-		   //process Jog employee login request
+		   EmployeeSys sys = new EmployeeSys(con);
+		   sys.doWork();
 		   break;
 	       }
 	       System.out.printf("%s", error);

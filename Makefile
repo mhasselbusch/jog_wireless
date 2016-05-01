@@ -12,7 +12,9 @@ CLASSES = \
 	NewCustomerSys.java \
 	ExistCustomerSys.java \
 	PhonePurchase.java \
-	Billing.java
+	Billing.java \
+	EmployeeSys.java \
+	Restock.java
 
 default: classes
 

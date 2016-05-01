@@ -13,6 +13,7 @@ class CustomerSys {
 	
 	//Determine what kind of customer the user is
 	
+	System.out.printf("%s", Jog.separatorString);
 	System.out.printf("\n\nAre you an existing customer?  If so, enter a '1'.");
 	System.out.printf("\nAre you a new customer?  If so, enter a '2'.");
 

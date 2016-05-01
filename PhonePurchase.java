@@ -10,10 +10,12 @@ class PhonePurchase{
     private String accountNumber;
     private int number_limit;
     private int phones_assigned;
+    private String store_id;
 
-    public PhonePurchase(Connection con, String accountNumber){
+    public PhonePurchase(Connection con, String accountNumber, String store_id){
 	this.con = con;
 	this.accountNumber = accountNumber;
+	this.store_id = store_id;
     }
     
     public void doWork() throws SQLException{
@@ -23,17 +25,18 @@ class PhonePurchase{
 	    
 	    System.out.printf("%s", Jog.separatorString);
 	    
-	    System.out.printf("\n\nYou've been cleared to buy a new phone!");
+	    System.out.printf("\n\nThis account has been cleared to buy a new phone!");
 	    
 	    //Proceed with the phone purchase.
 	    this.buyPhone();
 	    
-	    System.out.printf("\n\nReturning to main account menu...");
+	    System.out.printf("\n\nReturning to previous menu...");
+	    return;
 	}
 	else{
 	    
-	    System.out.printf("\n\nYou are unable to purchase a new phone at this time.");
-	    System.out.printf("\nYour account has a limit of %d phone(s) and you currently have %d phone(s) assigned.\n",this.number_limit,this.phones_assigned);
+	    System.out.printf("\n\nThis account is unable to purchase a new phone at this time.");
+	    System.out.printf("\nThis account has a limit of %d phone(s) and  currently has %d phone(s) assigned.\n",this.number_limit,this.phones_assigned);
 	    return;
 	}
 
@@ -76,7 +79,7 @@ class PhonePurchase{
 	    }
 	}
 	catch(SQLException ex){
-	    System.err.printf("\n\nInternal database error.  Please report this error to Jog support and try again.");
+	    System.err.printf("\n\nInternal database error.  Please try again.");
 	    return false;
 	}
 	finally{
@@ -89,7 +92,7 @@ class PhonePurchase{
     //Make a phone purchase
     private Boolean buyPhone() throws SQLException{
 	
-	String query = "SELECT manufacturer, model FROM inventory where STORE_ID = '0'";
+	String query = "SELECT manufacturer, model FROM inventory where STORE_ID = ?";
 	Statement statement = null;
 	ResultSet result = null;
 	CallableStatement cstate = null;
@@ -101,11 +104,11 @@ class PhonePurchase{
 	     Get the names and brands of phones that Jog currently offers through its online store.
   	   */
     
-	    statement = con.createStatement();
-	    
-	    result = statement.executeQuery(query);
+	    pstate = con.prepareStatement(query);
+	    pstate.setString(1, this.store_id);
+	    result = pstate.executeQuery();
 	 
-	    System.out.printf("\n\nWhich phone would you like to purchase?");
+	    System.out.printf("\n\nWhich phone will be purchased?");
 	    
 	    int i = 0;
 	    
@@ -126,7 +129,7 @@ class PhonePurchase{
 		i++;
 		
 	    }
-	    System.out.printf("\n\nEnter your selection here: ");	    
+	    System.out.printf("\n\nEnter the selection here: ");	    
 	    
 	    String error = "\nPlease enter a valid selection (one of the numbers listed above): ";
 	    String selection = Jog.verifyInput(error);
@@ -161,8 +164,8 @@ class PhonePurchase{
 	    */
 
 	    System.out.printf("\nYou selected the %s %s.", manu_Selection, model_Selection);	    
-	    System.out.printf("\n\nDo you want to proceed with your purchase?  \nEnter a 'y' for yes or an 'n' for no.  \nIf you enter an 'n' you will be returned to the main account menu.");
-	    System.out.printf("\n\nEnter your selection here: ");
+	    System.out.printf("\n\nDo you want to proceed with this purchase?  \nEnter a 'y' for yes or an 'n' for no.  \nIf you enter an 'n' you will be returned to the main  menu.");
+	    System.out.printf("\n\nEnter the selection here: ");
 
 	    error = "\nPlease enter a valid selection (y or n): ";
 	    selection = Jog.verifyInput(error);
@@ -226,7 +229,7 @@ class PhonePurchase{
 		
 		if(cstate.getInt(1) == 1){
 		    
-		    System.out.printf("\nThe phone number for your new phone is %s.", phone_num);
+		    System.out.printf("\nThe phone number for this new phone is %s.", phone_num);
 		    break;
 		}
 	    }
@@ -260,20 +263,20 @@ class PhonePurchase{
 
 		if(cstate.getInt(1) == 1){
 		    
-		    System.out.printf("\n\nYour MEID for your new phone is %s.", meid);
+		    System.out.printf("\n\nThe MEID for this new phone is %s.", meid);
 		    break;
 		}
 		
 	    }
 
-	    System.out.printf("\n\nDo you want to purchase this phone?");
+	    System.out.printf("\n\nDo you want to proceed with the purchase of this phone?");
 	    System.out.printf("\nHere is its information: ");
 	    System.out.printf("\n\tManufacturer: %s", manu_Selection);
 	    System.out.printf("\n\tModel: %s", model_Selection);
 	    System.out.printf("\n\tPhone Number: %s", phone_num);
 	    System.out.printf("\n\tMEID: %s", meid);
 
-	    System.out.printf("\n\nEnter you selection here (y or n): ");
+	    System.out.printf("\n\nEnter the selection here (y or n): ");
 
 	    error = "\nPlease enter a valid selection (y or n): ";
 	    selection = Jog.verifyInput(error);
@@ -318,12 +321,13 @@ class PhonePurchase{
 	    String date_string = cstate.getString(1);;
 	    
 	    //Update the soldPhones relation
-	    query = "insert into soldphones values (0, ?, ?, ?, ?)";
+	    query = "insert into soldphones values (?, ?, ?, ?, ?)";
 	    pstate = this.con.prepareStatement(query);
-	    pstate.setString(1, meid);
-	    pstate.setString(2, manu_Selection);
-	    pstate.setString(3, model_Selection);
-	    pstate.setString(4, date_string);
+	    pstate.setString(1, store_id);
+	    pstate.setString(2, meid);
+	    pstate.setString(3, manu_Selection);
+	    pstate.setString(4, model_Selection);
+	    pstate.setString(5, date_string);
 	    pstate.executeUpdate();
 	    
 	    
@@ -341,28 +345,30 @@ class PhonePurchase{
 	    
 	    /*
 	      Get the customer's address to tell them where the phone is being sent
+	      if the purchase is being made online.
 	    */
-	    
-	    result = Jog.getAddressByAcc(this.accountNumber);
-	    
 	    String address = null;
 	    String state = null;
 	    String city = null;
-	    
-	    if(result.next()){
+
+	    if(store_id.compareTo("0") == 0){
+		result = Jog.getAddressByAcc(this.accountNumber);
 		
-		address = result.getString("address");
-		state = result.getString("state");
-		city = result.getString("city");
-	    }
-	    else{
-		
-		System.out.printf("\n\nPlease make sure you have an address on file with Jog.  Please edit your account information and attempt your purchase again.");
-		return false;
+		if(result.next()){
+		    
+		    address = result.getString("address");
+		    state = result.getString("state");
+		    city = result.getString("city");
+		}
+		else{
+		    
+		    System.out.printf("\n\nPlease make sure an address is on file with Jog for this account.  Please edit the account information and attempt the purchase again.");
+		    return false;
+		}
 	    }
 	    
 	    //Get a credit card number from the user to charge
-	    System.out.printf("\n\nPlease enter your credit card number: ");
+	    System.out.printf("\n\nPlease enter a credit card number: ");
 	    error = "\nInvalid credit card number.  Please try again: ";
 	    String cc_num = Jog.verifyInput(error);
 	    int times = 1;
@@ -372,7 +378,7 @@ class PhonePurchase{
 		    break;
 		}
 		if(times == 3){
-		    System.out.printf("\n\n3 incorrect attempts.  Closing system.\n");
+		    System.out.printf("\n\n3 incorrect attempts.  Returning to main menu.\n");
 		    if(statement != null){
 			statement.close();
 		    }
@@ -385,10 +391,7 @@ class PhonePurchase{
 		    if(pstate != null){
 			pstate.close();
 		    }
-		    if(con != null){
-			con.close();
-		    }
-		    System.exit(0);
+		    return false;
 		}
 		times++;
 		System.out.printf("%s", error);
@@ -398,11 +401,16 @@ class PhonePurchase{
 	    //Commit all changes to the database and inform the user that their purchase went through.
 	    System.out.printf("%s", Jog.separatorString);
 	    con.commit();
-	    System.out.printf("\nYour phone has been purchased!  Your credit card, number %s has been billed the price of the phone.  Your phone should arrive at %s, %s %s in 3-4 business days.", cc_num, address, city, state);
-	    con.setAutoCommit(true);
-	    return true;
-	
 	    
+	    if(store_id.compareTo("0") == 0){
+
+		System.out.printf("\nThis phone has been purchased!  Your credit card, number %s has been billed the price of the phone.  Your phone should arrive at %s, %s %s in 3-4 business days.", cc_num, address, city, state);
+	    }
+	    else{
+		System.out.printf("\nPurchase complete!  The customer's phone is activated and ready for use.");
+	    }
+	    con.setAutoCommit(true);
+	    return true;		    
 	}
 	catch(SQLException ex){
 	    System.err.printf("Trouble reaching Jog database.  Please try again later.");

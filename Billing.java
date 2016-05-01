@@ -18,7 +18,7 @@ class Billing{
 	  First, we need to ask the user to indicate which month they would like a 
 	  bill to be generated for.
 	*/
-
+	System.out.printf("%s", Jog.separatorString);
 	System.out.printf("\nWhich month would you like to generate a bill for? (1-12): ");
 	String error = "\nPlease enter a valid month number (1-12): ";
 	String month = Jog.verifyInput(error);
@@ -413,7 +413,7 @@ class Billing{
 	  If the total is 0, do not pay the bill.  Else, see if the it is already paid.  If so,
 	  exit.  If not, proceed with payment.
 	*/
-	if(total >= 0){
+	if(total > 0){
 	    
 	    if(paid == 0){
 		if(type == 1){			
@@ -430,12 +430,12 @@ class Billing{
 		}
 	    }
 	    else{
-		System.out.printf("\n\nYour bill is already paid.  Returning to main account menu...");
+		System.out.printf("\n\nThis bill is already paid.  Returning to main account menu...");
 		return false;
 	    }
 	}
 	else{
-	    System.out.printf("\n\nYour bill is $0.  Returning to main account menu...");
+	    System.out.printf("\n\nThis bill is $0.  Returning to main account menu...");
 	    return false;
 	}
 	try{	    	
@@ -443,8 +443,8 @@ class Billing{
 	    /*
 	      Ask if the user wants to pay their bill.
 	    */
-	    System.out.printf("\n\nWould you like to pay your bill of $%.2f now? (y or n)", total);
-	    System.out.printf("\n\nEnter your selection here: ");
+	    System.out.printf("\n\nWould you like to pay the bill of $%.2f now? (y or n)", total);
+	    System.out.printf("\n\nEnter the selection here: ");
 	    error = "\nPlease enter a valid selection (y or n): ";
 	    selection = Jog.verifyInput(error);
 	    
@@ -465,7 +465,7 @@ class Billing{
 	      Get the user's credit card number.
 	    */
 
-	    System.out.printf("\nEnter your credit card number: ");
+	    System.out.printf("\nEnter a credit card number: ");
 	    error = "\nInvalid credit card number.  Please try again: ";
 	    String cc_num = Jog.verifyInput(error);
 	    int times = 1;
@@ -477,11 +477,11 @@ class Billing{
 		    break;
 		}
 		if(times == 3){
-		    System.out.printf("\n\n3 incorrect attempts.  Closing system.\n");
+		    System.out.printf("\n\n3 incorrect attempts.  Returning to main menu.\n");
 		    if(this.con != null){
 			con.close();
 		    }
-		    System.exit(0);
+		    return false;
 		}
 		times++;
 		System.out.printf("%s", error);

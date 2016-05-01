@@ -11,7 +11,7 @@ class ExistCustomerSys{
 	/*
 	  Get the account number of the existing customer
 	*/
-	
+	System.out.printf("%s", Jog.separatorString);
 	System.out.printf("\nPlease enter your account number (5 digit number): ");
 
 	String error = "\nPlease enter a valid account number (5 digits): ";
@@ -36,7 +36,7 @@ class ExistCustomerSys{
 		    }
      		}
 		catch(SQLException ex){
-		    System.err.printf("Internal database error.  Please log in again.");
+		    System.err.printf("\nInternal database error.  Please log in again.");
 		    System.exit(0);
 		}
 		finally{
@@ -129,7 +129,7 @@ class ExistCustomerSys{
 		}
 		else if(selection.compareTo("2") == 0){
 		    //process phone purchase request
-		    PhonePurchase purch = new PhonePurchase(con, accountNumber);
+		    PhonePurchase purch = new PhonePurchase(con, accountNumber, "0");
 		    purch.doWork();
 		    break;
 		    
