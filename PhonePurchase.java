@@ -325,8 +325,8 @@ class PhonePurchase{
 	    pstate = this.con.prepareStatement(query);
 	    pstate.setString(1, store_id);
 	    pstate.setString(2, meid);
-	    pstate.setString(3, manu_Selection);
-	    pstate.setString(4, model_Selection);
+	    pstate.setString(3, model_Selection);
+	    pstate.setString(4, manu_Selection);
 	    pstate.setString(5, date_string);
 	    pstate.executeUpdate();
 	    

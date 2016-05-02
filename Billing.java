@@ -430,12 +430,12 @@ class Billing{
 		}
 	    }
 	    else{
-		System.out.printf("\n\nThis bill is already paid.  Returning to main account menu...");
+		System.out.printf("\nThis bill is already paid.  Returning to main account menu...");
 		return false;
 	    }
 	}
 	else{
-	    System.out.printf("\n\nThis bill is $0.  Returning to main account menu...");
+	    System.out.printf("\nThis bill is $0.  Returning to main account menu...");
 	    return false;
 	}
 	try{	    	
