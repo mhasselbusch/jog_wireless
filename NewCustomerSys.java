@@ -27,7 +27,7 @@ class NewCustomerSys{
 	while(true){
 	    
 	    try{
-		selection.toLowerCase();
+		selection = selection.toLowerCase();
 		if(selection.compareTo("y") == 0){
 		    acc_create = new AccountCreation(con, "0");
 		    acc_create.doWork();

@@ -14,13 +14,14 @@ class Restock{
     }
     
     public void doWork() throws SQLException{
-	
-	if(processRestock()){
+	int result = processRestock();
+	if(result == 1){
 	    System.out.printf("\nRestock request successfully processed.  Your order will be shipped to the store shortly");
 	}
+	else if(result == 2){	   
+	}
 	else{
-	    System.out.printf("\n\nError processing restock request.  Please try again later");
-	
+	    System.out.printf("\n\nError processing restock request.  Please try again later");	
 	}
 	return;
     }
@@ -28,7 +29,7 @@ class Restock{
     /*
       Prints out the stock of phones at a store
      */
-    private boolean processRestock() throws SQLException{
+    private int processRestock() throws SQLException{
 
 	String query = "SELECT manufacturer, model, quantity FROM inventory where STORE_ID = ?";
 	PreparedStatement pstate = null;
@@ -57,12 +58,10 @@ class Restock{
 	    }
 
 	    System.out.printf("\n\nWhich phone would you like to submit a restock request for?");
-
 	    for(int y = 0; y < i; y++){
-		System.out.printf("\nTo restock the %s %s, enter a %d.", phoneManus.get(y), phoneModels.get(y), y);
-		
-
+		System.out.printf("\nTo restock the %s %s, enter a %d.", phoneManus.get(y), phoneModels.get(y), y);		
 	    }
+	    System.out.printf("\nTo exit, enter 'back'");
 	    System.out.printf("\n\nEnter the selection here: ");
 	    
 	    String error = "\nPlease enter a valid selection (one of the numbers listed above): ";
@@ -72,19 +71,29 @@ class Restock{
 	    String manu_selection = null;
 	    
 	    while(true){
-
+		
+		try{
+		    selection = selection.toLowerCase();
+		}
+		catch(Exception ex){
+		}
+		System.out.printf(selection);
+		if(selection.compareTo("back") == 0){
+		    System.out.printf("\n\nReturning to previous menu...");
+		    return 2;
+		}
 		if(selection.length() == 1){
 		    
 		    if(Character.isDigit(selection.charAt(0))){
 			
 			select_Int = Character.getNumericValue(selection.charAt(0));
-		    
+			
 			if(select_Int < phoneModels.size()){
 
 			    model_selection = phoneModels.get(select_Int);
 			    manu_selection = phoneManus.get(select_Int);
 			    break;
-		    
+			    
 			}
 		    }
 		}
@@ -140,16 +149,15 @@ class Restock{
 	    cstate.execute();
 
 	    if(cstate.getInt(1) == 1){
-		return true;
+		return 1;
 	    }
 	    else{
-		return false;
+		return 0;
 	    }
 	}
 	catch(SQLException ex){
 	    System.out.printf("\n\nError connecting to Jog database.  Please try again later");
-	    ex.printStackTrace();
-	    return false;
+	    return 0;
 	}
 	finally{
 	    if(pstate != null){

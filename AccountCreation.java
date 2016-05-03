@@ -150,9 +150,9 @@ class AccountCreation{
 	      
 	    */
 	    
-	    System.out.printf("\n\nIn order to proceed, a phone must be purchased.  This phone will be used as the primary contact phone for the account.");
-	    System.out.printf("\n\nWould you like to proceed (y or n)?");
-	    System.out.printf("\n\nEnter your selection here: ");
+	    System.out.printf("\nIn order to proceed, a phone must be purchased.  This phone will be used as the primary contact phone for the account.");
+	    System.out.printf("\n\nWill a phone be purchased at this time? (y or n)?");
+	    System.out.printf("\n\nEnter the selection here: ");
 	    error = "\nPlease enter a valid selection (y or n): ";
 	    String selection = Jog.verifyInput(error);
 	    
@@ -286,6 +286,22 @@ class AccountCreation{
 	    System.out.printf("\nCity: %s", this.city);
 	    System.out.printf("\nState: %s", this.state);
 	    System.out.printf("%s", Jog.separatorString);
+	    
+	    String fileName = "account".concat(accountNumber).concat(".txt");
+	    PrintWriter writer = new PrintWriter(fileName, "UTF-8");
+	    writer.printf("Customer Number: %s", this.customerNumber);
+	    writer.printf("\nAccount Number: %s", accountNumber);
+            writer.printf("\nAccount Type: %s", account_word);
+            writer.printf("\nBilling Plan: %s", bill_plan);
+            writer.printf("\nPrimary Phone: %s", phone_number);
+
+            writer.printf("\n\nName: %s", this.name);
+            writer.printf("\nAddress: %s", this.address);
+            writer.printf("\nCity: %s", this.city);
+            writer.printf("\nState: %s", this.state);
+	    writer.close();
+
+	    System.out.printf("\n\nA file containing the above account information, titled %s, has been created.  Please print it for record keeping purposes.", fileName);
 
 	    return true;
 

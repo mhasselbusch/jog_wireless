@@ -137,7 +137,7 @@ class ExistCustomerSys{
 		    break;		    
 		}
 		else{
-		    selection.toLowerCase();
+		    selection = selection.toLowerCase();
 		    if(selection.compareTo("quit") == 0){
 			System.out.printf("\nGoodbye!  Have a nice day.\n");
 			try{

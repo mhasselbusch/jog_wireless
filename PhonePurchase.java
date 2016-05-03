@@ -382,7 +382,7 @@ class PhonePurchase{
 		    break;
 		}
 		if(times == 3){
-		    System.out.printf("\n\n3 incorrect attempts.  Returning to main menu.\n");
+		    System.out.printf("\n\n3 incorrect attempts.");
 		    if(statement != null){
 			statement.close();
 		    }
@@ -408,7 +408,7 @@ class PhonePurchase{
 	    
 	    if(store_id.compareTo("0") == 0){
 
-		System.out.printf("\nThis phone has been purchased!  Your credit card, number %s has been billed the price of the phone.  Your phone should arrive at %s, %s %s in 3-4 business days.", cc_num, address, city, state);
+		System.out.printf("\nThis phone has been purchased!  \nYour credit card, number %s, has been billed the price of the phone.  \nYour phone should arrive at %s, %s %s in 3-4 business days.", cc_num, address, city, state);
 	    }
 	    else{
 		System.out.printf("\nPurchase complete!  The customer's phone is activated and ready for use.");

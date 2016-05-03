@@ -66,12 +66,15 @@ class EmployeeSys {
 	Billing bill = null;
 	String selection = null;
 	boolean finish = false;
+	AccountCreation acc = null;
+
 	System.out.printf("\n\nWhat would you like to do today?");
 	while(true){
 
 	    System.out.printf("\nTo process a restock request, enter a '1'.");
 	    System.out.printf("\nTo process a new phone purchase request, enter a '2'.");
 	    System.out.printf("\nTo process a bill payment request, enter a '3'.");
+	    System.out.printf("\nTo create a new account for a customer, enter a '4'.");
 	    System.out.printf("\nTo quit, enter 'quit'.");
 	    
 	    System.out.printf("\n\nEnter your selection here: ");
@@ -159,11 +162,18 @@ class EmployeeSys {
 			}
 		    }
 		}
+		else if(selection.compareTo("4") == 0){
+		    
+		    acc = new AccountCreation(this.con, store_id);
+		    acc.doWork();
+		    break;
+		    
+		}
 		/*
 		  Exit the system if the employee enters 'quit'.
 		 */
 		else{
-		    selection.toLowerCase();
+		    selection = selection.toLowerCase();
 		    if(selection.compareTo("quit") == 0){
 			System.out.printf("\nLogging out of the system...\n");
 			if(con != null){
