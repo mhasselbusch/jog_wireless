@@ -14,7 +14,8 @@ CLASSES = \
 	PhonePurchase.java \
 	Billing.java \
 	EmployeeSys.java \
-	Restock.java
+	Restock.java \
+	AccountCreation.java
 
 default: classes
 

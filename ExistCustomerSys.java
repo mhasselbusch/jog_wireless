@@ -4,9 +4,13 @@ import java.util.Scanner;
 
 class ExistCustomerSys{
 
-    public ExistCustomerSys(){}
-
-    public void doWork(Connection con) throws SQLException{
+    private Connection con = null;
+ 
+    public ExistCustomerSys(Connection con){
+	this.con = con;
+    }
+    
+    public void doWork() throws SQLException{
 	
 	/*
 	  Get the account number of the existing customer
@@ -110,7 +114,6 @@ class ExistCustomerSys{
 	    
        	    System.out.printf("\nTo view your bills, enter a '1'.");
 	    System.out.printf("\nTo purchase and add a new phone to your account, enter a '2'.");
-	    System.out.printf("\nTo view your usage logs, enter a '3'.");
 	    System.out.printf("\nTo quit, enter 'quit'");
 	    
 	    System.out.printf("\n\nEnter your selection here: ");
@@ -130,13 +133,8 @@ class ExistCustomerSys{
 		else if(selection.compareTo("2") == 0){
 		    //process phone purchase request
 		    PhonePurchase purch = new PhonePurchase(con, accountNumber, "0");
-		    purch.doWork();
-		    break;
-		    
-		}
-		else if(selection.compareTo("3") == 0){
-		    //process usage request
-		    break;
+		    String place_holder = purch.doWork();
+		    break;		    
 		}
 		else{
 		    selection.toLowerCase();

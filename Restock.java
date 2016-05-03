@@ -44,7 +44,7 @@ class Restock{
 	    System.out.printf("%s", Jog.separatorString);
 	    System.out.printf("\n\nThe current stock of phones at store #%s:\n", this.store_id);
 	    System.out.printf("\n%15s\t%15s\t%15s", "Manufacturer", "Model", "Quantity");
-
+	    
 	    while(result.next()){
 
 		System.out.printf("\n\n%15s\t%15s\t%15s", result.getString("manufacturer"), result.getString("model"), result.getString("quantity"));
@@ -53,8 +53,7 @@ class Restock{
 		phoneManus.add(result.getString("manufacturer"));
 		phoneQuant.add(result.getString("quantity"));
 			       
-		i++;
-				
+		i++;				
 	    }
 
 	    System.out.printf("\n\nWhich phone would you like to submit a restock request for?");
@@ -104,7 +103,7 @@ class Restock{
 	    System.out.printf("\nYou have selected to restock the %s %s.", manu_selection, model_selection);
 
 	    System.out.printf("\n\nHow many phones would you like to order (%d or less)? ", maxQuantity);
-	    
+	    System.out.printf("\n\nEnter your selection here: ");
 	    error = "\nPlease enter a valid selection (less than the limit mentioned above): ";
 	    selection = Jog.verifyInput(error);
 	    int selection_to_int = 0;

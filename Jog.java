@@ -32,8 +32,9 @@ class Jog {
 	     There are two options for systems.  Jog employee or jog customer.
 
 	   */
+	   System.out.printf("%s", separatorString);
 
-	   System.out.printf("\n\nEnter a 1 to log into the Jog customer interface");
+	   System.out.printf("\nEnter a 1 to log into the Jog customer interface");
 	   System.out.printf("\nEnter a 2 to log into the Jog employee interface");
 	   
 	   System.out.printf("\n\nEnter your selection here: ");
@@ -45,8 +46,8 @@ class Jog {
 	       if(selection.compareTo("1") == 0){
 		   System.out.printf("Processing customer login request...");
 		   //process Jog customer login request
-		   CustomerSys sys = new CustomerSys();
-		   sys.doWork(con);
+		   CustomerSys sys = new CustomerSys(con);
+		   sys.doWork();
 		   break;
 	       }
 	       else if(selection.compareTo("2") == 0){

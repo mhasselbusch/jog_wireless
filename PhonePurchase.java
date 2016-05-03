@@ -11,6 +11,7 @@ class PhonePurchase{
     private int number_limit;
     private int phones_assigned;
     private String store_id;
+    private String new_phone_number;
 
     public PhonePurchase(Connection con, String accountNumber, String store_id){
 	this.con = con;
@@ -18,7 +19,7 @@ class PhonePurchase{
 	this.store_id = store_id;
     }
     
-    public void doWork() throws SQLException{
+    public String doWork() throws SQLException{
 	
 	//First make sure the account can purchase a phone
 	if(this.confirmAccount()){
@@ -28,16 +29,21 @@ class PhonePurchase{
 	    System.out.printf("\n\nThis account has been cleared to buy a new phone!");
 	    
 	    //Proceed with the phone purchase.
-	    this.buyPhone();
+	    if(buyPhone()){
 	    
-	    System.out.printf("\n\nReturning to previous menu...");
-	    return;
+		System.out.printf("\n\nReturning to previous menu...");
+		return new_phone_number;
+	    }
+	    else{
+		System.out.printf("\n\nReturning to previous menu...");
+		return null;
+	    }
 	}
 	else{
 	    
 	    System.out.printf("\n\nThis account is unable to purchase a new phone at this time.");
 	    System.out.printf("\nThis account has a limit of %d phone(s) and  currently has %d phone(s) assigned.\n",this.number_limit,this.phones_assigned);
-	    return;
+	    return null;
 	}
 
     }
@@ -315,8 +321,6 @@ class PhonePurchase{
 	    cstate = this.con.prepareCall ("{? = call getDate}");
 	    cstate.registerOutParameter(1, java.sql.Types.VARCHAR);
 	    cstate.execute();
-
-	    //	    Timestamp date = cstate.get(1);
 	    
 	    String date_string = cstate.getString(1);;
 	    
@@ -410,6 +414,7 @@ class PhonePurchase{
 		System.out.printf("\nPurchase complete!  The customer's phone is activated and ready for use.");
 	    }
 	    con.setAutoCommit(true);
+	    this.new_phone_number = phone_num;
 	    return true;		    
 	}
 	catch(SQLException ex){
