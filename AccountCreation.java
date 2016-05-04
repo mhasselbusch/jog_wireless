@@ -31,15 +31,13 @@ class AccountCreation{
 	    if(createAccount()){
 		
 		/*
-		  Now that the account has been created, the user no longer has any reason to be
+		  Now that the account has been created, the user no longer has
+		  anyy reason to be
 		  logged into the new customer section of the system.
 		 */
 	    }
 	    else{
 		
-		/*
-		  Exit the system.
-		*/
 	    }
 	}
 	else{
@@ -157,7 +155,7 @@ class AccountCreation{
 	    String selection = Jog.verifyInput(error);
 	    
 	    while(true){
-		selection.toLowerCase();
+		selection = selection.toLowerCase();
 		if(selection.compareTo("y") == 0){
 		    break;
 		}
@@ -242,13 +240,14 @@ class AccountCreation{
 
 	    if((phone_number = purch.doWork()) != null){
 		
+		/*
 		query = "UPDATE account set primary_phone = ?, phones_assigned = ? where account_number = ?";
 		pstate = this.con.prepareStatement(query);
 		pstate.setString(1, phone_number);
 		pstate.setInt(2, 1);
 		pstate.setString(3, accountNumber);
 		pstate.executeUpdate();
-		
+		*/
 		
 	    }
 	    /*
@@ -430,7 +429,7 @@ class AccountCreation{
 	String selection = Jog.verifyInput(error);
 
 	while(true){
-	    selection.toLowerCase();
+	    selection = selection.toLowerCase();
 	    if(selection.compareTo("y") == 0){
 		
 		/*
@@ -454,7 +453,6 @@ class AccountCreation{
 		    }
 		}
 		catch(SQLException ex){
-		    ex.printStackTrace();
 		    System.out.printf("\nError connecting to the Jog database. Please try again later.");
 		    return 0;
 		}

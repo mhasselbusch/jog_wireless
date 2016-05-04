@@ -1,2 +1,2 @@
 Main-class: Jog
-Class-PathL ojdbc6.jar
+Class-Path: ojdbc6.jar

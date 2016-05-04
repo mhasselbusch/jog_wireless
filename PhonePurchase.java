@@ -178,10 +178,10 @@ class PhonePurchase{
 	    
 	    while(true){
 		
-		if(selection.toLowerCase().compareTo("y") == 0){
+		if((selection = selection.toLowerCase()).compareTo("y") == 0){
 		    break;
 		}
-		else if(selection.toLowerCase().compareTo("n") == 0){
+		else if((selection = selection.toLowerCase()).compareTo("n") == 0){
 		    if(statement != null){
 			statement.close();
 		    }
@@ -289,10 +289,10 @@ class PhonePurchase{
 	    
 	    while(true){
 		
-		if(selection.toLowerCase().compareTo("y") == 0){
+		if((selection = selection.toLowerCase()).compareTo("y") == 0){
 		    break;
 		}
-		else if(selection.toLowerCase().compareTo("n") == 0){
+		else if((selection = selection.toLowerCase()).compareTo("n") == 0){
 		    if(statement != null){
 			statement.close();
 		    }
@@ -406,6 +406,29 @@ class PhonePurchase{
 	    System.out.printf("%s", Jog.separatorString);
 	    con.commit();
 	    
+	    /*
+	      If this is the first phone being purchased for an account,
+	      update the account relation.
+	     */
+	    
+	    
+	    cstate = this.con.prepareCall("{? = call checkPhoneNull(?)}");
+	    cstate.registerOutParameter(1, Types.INTEGER);
+	    cstate.setString(2, this.accountNumber);
+	    cstate.execute();
+
+	    int result_null = cstate.getInt(1);
+
+	    if(result_null == 1){
+		System.out.printf("\n\nThis is the first phone being purchased under this account.  It will be added as the primary phone for this account.");
+		query = "UPDATE account set primary_phone = ?, phones_assigned = ? where account_number = ?";
+		pstate = this.con.prepareStatement(query);
+		pstate.setString(1, phone_num);
+		pstate.setInt(2, 1);
+		pstate.setString(3, accountNumber);
+		pstate.executeUpdate();
+	    
+	    }
 	    if(store_id.compareTo("0") == 0){
 
 		System.out.printf("\nThis phone has been purchased!  \nYour credit card, number %s, has been billed the price of the phone.  \nYour phone should arrive at %s, %s %s in 3-4 business days.", cc_num, address, city, state);
@@ -419,7 +442,6 @@ class PhonePurchase{
 	}
 	catch(SQLException ex){
 	    System.err.printf("Trouble reaching Jog database.  Please try again later.");
-	    ex.printStackTrace();
 	    return false;
 	}
 	finally{

@@ -5,7 +5,7 @@ JC = javac
 .java.class:
 	$(JC) $*.java
 
-CLASSES = \
+SOURCE = \
 	Jog.java \
 	Login.java \
 	CustomerSys.java \
@@ -17,9 +17,24 @@ CLASSES = \
 	Restock.java \
 	AccountCreation.java
 
+CLASSES = \
+	Jog.class \
+	Login.class \
+	CustomerSys.class \
+	NewCustomerSys.class \
+	ExistCustomerSys.class \
+	PhonePurchase.class \
+	Billing.class \
+	EmployeeSys.class \
+	Restock.class \
+	AccountCreation.class
+
 default: classes
 
-classes: $(CLASSES:.java=.class)
+classes: $(SOURCE:.java=.class)
+
+jar: classes
+	jar cfmv mah318.jar Manifest.txt $(CLASSES)
 
 clean:
-	$(RM) *~ *.class
+	$(RM) *~ *.class mah318.jar

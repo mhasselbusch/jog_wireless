@@ -38,11 +38,15 @@ class Billing{
 	/*
 	  Second, we need to ask the user which year to generate the bill for.
 	*/
-
+	 
+	CallableStatement cstate = null;
+	ResultSet result = null;
+	String query = null;
+	
 	System.out.printf("\nWhich year would you like to generate the bill for? (> 2014): ");
 	error = "\nPlease enter a valid year number (> 2014): ";
 	String year = Jog.verifyInput(error);
-
+	
 	while(true){
 	    
 	    try{
@@ -53,18 +57,14 @@ class Billing{
 	    catch(Exception ex){}
 	    System.out.printf("%s",error);
 	    year = Jog.verifyInput(error);
-
 	}
-
-	/*
-	  Next, we will call the PL/SQL function generateBill.  This will do essentially all of the
-	  work in the bill generation process.  After the bill is generated, we will simply 
-	  query the database for it.
-	*/
 	
-	CallableStatement cstate = null;
-	ResultSet result = null;
-	String query = null;
+	/*
+	  Next, we will call the PL/SQL function generateBill.  
+	  This will do essentially all of the
+	  work in the bill generation process.  After the bill is 
+	  generated, we will simply query the database for it.
+	*/
 	
 	try{
 	    
@@ -74,20 +74,28 @@ class Billing{
 	    cstate.setString(3, month);
 	    cstate.setString(4, year);
 	    cstate.execute();
-	    
+		
 	    int result_num = cstate.getInt(1);
-
+		
 	    if(result_num == 2 || result_num == 3){
-		System.err.printf("\n\nInvalid year/month.  Returning to main account menu...");
+		System.err.printf("\nInvalid year/month. \nReturning to previous menu...");		  
 		return;
 	    }
-	    if(result_num == 0){
+	    else if(result_num == 4){
+		System.out.printf("\nNo phones were activated for this account during the specified timeframe. As such, there is no billing information.\nReturning to previous menu...");
+		return;
+	    }
+	    else if(result_num == 5){
+		System.out.printf("\nNo bill can be generated for this month because the billing cycle is still in progress. Bills can be viewed at the end of each month.\nReturning to previous menu...");
+		return;
+	    }
+	    else if(result_num == 0){
 		throw new SQLException();
 	    }
+	
 	    
 	}
 	catch(SQLException ex){
-	    ex.printStackTrace();
 	    System.err.printf("\n\nInternal database error.  Returning to main account menu...");
 	    return;
 	}
@@ -371,7 +379,6 @@ class Billing{
 	    con.commit();
 	}
 	catch(SQLException ex){
-	    ex.printStackTrace();
 	    System.out.printf("\n\nInternal database error.  Please try again later.");
 	    return false;
 	}
@@ -450,11 +457,11 @@ class Billing{
 	    
 	    while(true){
 		
-		if(selection.toLowerCase().compareTo("y") == 0){
+		if((selection = selection.toLowerCase()).compareTo("y") == 0){
 		    break;
 		    
 		}
-		if(selection.toLowerCase().compareTo("n") == 0){
+		if((selection = selection.toLowerCase()).compareTo("n") == 0){
 		    return false;
 		}
 		System.out.printf("%s", error);

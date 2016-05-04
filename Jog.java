@@ -119,7 +119,6 @@ class Jog {
 	catch(SQLException ex){
 	    
 	    System.out.printf("\n\nCannot reach the database at this time.  Please try again later");
-	    ex.printStackTrace();
 	    pstate.close();
 	    return null;
 
@@ -133,21 +132,21 @@ class Jog {
     public static boolean check_cc_num(String cc_num){
 	
 	int sum = 0;
-	boolean alt = false;
+	boolean every_second = false;
 	try{
 	    for (int i = cc_num.length() - 1; i >= 0; i--){
-		int n = Integer.parseInt(cc_num.substring(i,i+1));
+		int temp = Character.getNumericValue(cc_num.charAt(i));
 		
-		if(alt){
-		    n *= 2;
+		if(every_second){
+		    temp = 2 * temp;
 		    
-		if(n > 9){
+		    if(temp > 9){
 		    
-		    n = (n % 10) + 1;
+			temp = temp - 9;
+		    }
 		}
-		}
-		sum += n;
-		alt = !alt;
+		sum = sum + temp;
+		every_second = !every_second;
 	    }
 	    return (sum % 10 == 0);
 	}
