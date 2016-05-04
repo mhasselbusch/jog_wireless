@@ -233,16 +233,22 @@ exception
     return 0;
 end;
 
-create or replace function generateBill(account_num in account.account_number%type, month in billsPlan1.month%type, bill_year in billsPlan1.year%type) RETURN number
+create or replace function generateBill(account_num in account.account_number%type, 
+month in billsPlan1.month%type, bill_year in billsPlan1.year%type) RETURN number
 is
   bill_type varchar(1);
+  max_month number;
+  min_month number;
   cursor acc_cursor is select bill_plan from account where account_number = account_num;
+  cursor date_cursor is select min(extract(month from activate_date))
+                     from phonenumber natural join soldphones 
+                     where account_number = account_num;
 begin
-  
   if bill_year > extract(year from SYSTIMESTAMP)
   then
       return 2;
   end if;
+  
   if month > extract(month from SYSTIMESTAMP)
   then
     if bill_year >= extract(year from SYSTIMESTAMP)
@@ -251,6 +257,21 @@ begin
     end if;
   end if;
   
+  open date_cursor;
+  fetch date_cursor into min_month;
+    
+  if min_month > month
+  then
+    return 4;
+  end if;
+  
+  if month >= extract(month from SYSTIMESTAMP)
+  then
+    if bill_year = extract(year from SYSTIMESTAMP)
+    then
+      return 5;
+    end if;
+  end if;
   open acc_cursor;
   fetch acc_cursor into bill_type;
   if bill_type = '1'
@@ -267,7 +288,6 @@ begin
   end if;
   return 0;
 end;
-
 create or replace function generateDuration(input in varchar) return number
 as
   cursor call_cursor is (select phone_number, source_number, dest_number, call_starttime, call_endtime, duration from calllog);
@@ -461,4 +481,89 @@ begin
   fetch acc_cursor into acc_num;
   end loop;
   return 0;
+end;
+
+create or replace function restockRequest(rs_store_id in inventory.store_id%type,
+phone_model in inventory.model%type,
+phone_manu in INVENTORY.MANUFACTURER%type,
+rs_quantity in INVENTORY.QUANTITY%type) return number
+is
+begin
+
+  update inventory 
+  set quantity = quantity - rs_quantity 
+  where model = phone_model and manufacturer = phone_manu and store_id = '0';
+  
+  update  inventory 
+  set quantity = quantity + rs_quantity
+  where model = phone_model and manufacturer = phone_manu and store_id = rs_store_id;
+  
+  update inventory 
+  set quantity = 999
+  where model = phone_model and manufacturer = phone_manu and store_id = '0';
+  
+  return 1;
+exception 
+  when others then
+    return 0;
+end;
+
+create or replace function VERIFYSTORE(input in account.account_number%type) return number
+is
+  cursor store_cursor is select store_id from store;
+  store_num store.store_id%type;
+begin
+  open store_cursor;
+  fetch store_cursor into store_num;
+  while store_cursor%found
+  loop
+  if store_num = input
+  then
+    return 1;
+  end if;
+  fetch store_cursor into store_num;
+  end loop;
+  return 0;
+end;
+
+create or replace function GETCUSTOMERNUMBER return number
+is
+  cursor number_cursor is select max(to_number(customer_number))
+  from customer;
+  num number;
+begin
+  open number_cursor;
+  fetch number_cursor into num;
+  return num + 1;
+end;
+
+create or replace function checkAccountNum(input in account.account_number%type) return number
+is
+  cursor acc_cursor is select account_number from account;
+  acc_num account.account_number%type;
+begin
+  open acc_cursor;
+  fetch acc_cursor into acc_num;
+  while acc_cursor%found
+  loop
+  if acc_num = input
+  then 
+    return 0;
+  end if;
+  fetch acc_cursor into acc_num;
+  end loop;
+  return 1;
+end;
+
+create or replace function checkPhoneNull(input in account.account_number%type) return number
+is
+  cursor acc_cursor is select primary_phone from account where account_number = input;
+  is_null varchar(10);
+begin
+  open acc_cursor;
+  fetch acc_cursor into is_null;
+  if is_null is null
+  then
+    return 1;
+  end if;
 end;
