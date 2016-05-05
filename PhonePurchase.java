@@ -410,8 +410,7 @@ class PhonePurchase{
 	      If this is the first phone being purchased for an account,
 	      update the account relation.
 	     */
-	    
-	    
+	    	    
 	    cstate = this.con.prepareCall("{? = call checkPhoneNull(?)}");
 	    cstate.registerOutParameter(1, Types.INTEGER);
 	    cstate.setString(2, this.accountNumber);
@@ -442,6 +441,7 @@ class PhonePurchase{
 	}
 	catch(SQLException ex){
 	    System.err.printf("Trouble reaching Jog database.  Please try again later.");
+	    ex.printStackTrace();
 	    return false;
 	}
 	finally{

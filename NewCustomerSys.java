@@ -34,6 +34,7 @@ class NewCustomerSys{
 		    break;
 		}
 		else if(selection.compareTo("n") == 0){
+		    System.out.printf("Exiting...\n");
 		    return;
 		}
 	    }

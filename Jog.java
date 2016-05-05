@@ -131,26 +131,46 @@ class Jog {
      */
     public static boolean check_cc_num(String cc_num){
 	
-	int sum = 0;
-	boolean every_second = false;
+	/*
+	  First, test to see if the input string is a number
+	 */
+
 	try{
-	    for (int i = cc_num.length() - 1; i >= 0; i--){
-		int temp = Character.getNumericValue(cc_num.charAt(i));
-		
+	    
+	    double x = Double.parseDouble(cc_num);
+	
+	}
+	catch(Exception x){
+	    x.printStackTrace();
+	    return false;
+	}
+
+	if(cc_num.length() >= 10){
+	
+	    int sum = 0;
+	    boolean every_second = false;
+	    try{
+		for (int i = cc_num.length() - 1; i >= 0; i--){
+		    int temp = Character.getNumericValue(cc_num.charAt(i));
+		    
 		if(every_second){
 		    temp = 2 * temp;
 		    
 		    if(temp > 9){
-		    
+			
 			temp = temp - 9;
 		    }
 		}
 		sum = sum + temp;
 		every_second = !every_second;
-	    }
+		}
 	    return (sum % 10 == 0);
+	    }
+	    catch(Exception ex){
+		return false;
+	    }
 	}
-	catch(Exception ex){
+	else{
 	    return false;
 	}
     }

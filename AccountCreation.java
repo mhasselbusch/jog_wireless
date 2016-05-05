@@ -399,7 +399,7 @@ class AccountCreation{
 	  Get the customer's state
 	*/
 	System.out.printf("\nPlease enter a state (abrv) to be associated with this address (2 or less characters): ");
-	error = "\nPlease enter a valid city (2 or less characters): ";
+	error = "\nPlease enter a valid state (2 or less characters): ";
 	String cust_state = Jog.verifyInput(error);
 
 	while(true){
@@ -463,7 +463,7 @@ class AccountCreation{
 		/*
 		  Return a 0, signalling the customer decided to cancel the process.
 		 */
-		System.out.printf("\nReturning to main account menu... ");
+		System.out.printf("\nExiting account creation... ");
 		return 0;
 	    }
 	    System.out.printf("%s", error);

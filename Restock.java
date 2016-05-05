@@ -77,7 +77,6 @@ class Restock{
 		}
 		catch(Exception ex){
 		}
-		System.out.printf(selection);
 		if(selection.compareTo("back") == 0){
 		    System.out.printf("\n\nReturning to previous menu...");
 		    return 2;
