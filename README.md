@@ -1,21 +1,10 @@
 # jog_wireless
 
-Maximilian Hasselbusch (mah318)
-CSE 241 Project README
-6 May 2016
+Written by: Maximilian Hasselbusch
 
-####   #####      #      ###    #       #  #####
-#  #   #         # #     #  #   ##     ##  #
-###    #####    #####    #   #  # #   # #  #####
-#  #   #       #     #   #  #   #  # #  #  #
-#   #  #####  #       #  ###    #   #   #  #####
+Last Updated: 4 Jan 2017
 
-
-############################
-##                        ##
 ##    Table of Contents   ##
-##                        ##
-############################
 
 1. File Structure and File Descriptions
 2. Interface Descriptions
@@ -24,12 +13,10 @@ CSE 241 Project README
 5. Important Information and Assumptions
 6. Resources Used
 
-############################
 ##            1.          ##
 ##     File Structure &   ##
 ##    File Descriptions   ##
 ##                        ##
-############################
 
 #######################
 ##   File Structure  ##
@@ -173,140 +160,9 @@ Jog allows its customers to pay bills in-store.  The bill generation and payment
 
 Employees can create accounts for in-store customers.  The process is the same for employees as it is for online customers.  The created file would be printed by the employee and given to the customer so they can keep it for their records.
 
-############################
-##            3.          ##
-##   Recommended Tests    ##
-##                        ##
-############################
-
-Below are some recommend tests to run for each interface (as well as the data required to do them).  You’re free to use your own values from the database as well.
-
-For some of these tests, you’ll need a valid credit card number (because of the Luhn check). If an invalid credit card number is entered 3 times at a request for one, the system will stop the current process and return to the menu.  This is implemented as a simple security measure to augment the design of the system even further. 
-
-Here is a valid credit card number: 4929-7726-0309-5732 (enter it WITHOUT the dashes)
-
-Something else to note: getting bills for May, 2015 should yield the best results and show a bill you typically would see for a traditional phone company.  This is because all of the call data entered is for May of 2015.  There are some texts and data usages outside that time frame, but each account has lots of data for May 2015.  So feel free to test all months that the system will allow you to.  There will just be a minuscule number of minutes/texts/data for other billing cycles.  
-
-=======================================
-Interface 1: Viewing and Paying Bills
-
-Bill Plan 1
-
-View (already paid)
->Acc Number: 15646
->Month: 5
->Year: 2015
-
-Pay
->Acc Number: 15243
->Month: 5
->Year: 2015
-
-Bill Plan 2
-
-View (already paid)
->Acc Number: 15972
->Month: 5
->Year: 2015
-
-Pay
->Acc Number:17248
->Month: 5
->Year: 2015
-
-Bill Plan 3
-
-View (already paid)
->Acc Number: 11512
->Month: 5
->Year: 2015
-
-Pay
->Acc Number:19589
->Month: 5
->Year: 2015
-
-=======================================
-
-Interface 2: Purchase and Add Phone to Account
-
-Business Acc Numbers: 11512, 39638
-
-This account can have unlimited phones, so try as many purchases as desired.  Make some fail, make some work.  
-
-Family Acc Numbers: 12875, 11473, 17039
-
-These accounts have limits of 5 phones each.  Currently, there is only have one phone assigned to each of them.
-
-=======================================
-Interface 3: Set up a new Account
-
-This process uses no information already stored in the database.  You may create as many accounts as you’d like.
-
-Make sure to view the created file that contains all customer information.
-
-=======================================
-=======================================
-
-The following are the employee interfaces.  Here are some sample store ids that can be used for testing:
-
-27255
-58036
-54522
-
-=======================================
-
-Interface 4: Process a restock request
-
-Nothing beyond knowing the store id is needed to use this interface.
-
-=======================================
-
-Interface 5: Process a new phone purchase request (for an in-store existing customer)
-
-The only thing needed here is the customer’s account number.  Here are some accounts that can still have phones added (family, business):
-
-11512
-12763
-13206
-
-These accounts have no more room for phones:
-
-17248
-15646
-10656
-
-=======================================
-
-Interface 6: Process a bill payment request (for an in-store existing customer)
-
-Any account number can be used.  Here are some samples:
-
-11512
-12763
-11299
-
-17248
-15646
-10656
-
-=======================================
-
-Interface 7: Set up a new Account for an in-store customer
-
-The test for this is essentially the same as it is for a new customer online.  Use the store IDs listed above to log into the employee system.  Make sure to view the created file that contains all customer information.
 
 ############################
 ##            4.          ##
-##       Changes to       ##
-##        ER Design       ##
-##                        ##
-############################
-
-The only change made to the ER design was the addition of the attribute ‘Paid’ in all of the bill plan relations.  This was done to augment the design of the interfaces to notify customers and employees when a bill has already been paid.
-
-############################
-##            5.          ##
 ##  Important Information ##
 ##     and Assumptions    ##
 ##                        ##
@@ -355,7 +211,7 @@ and the source for it is included in the resources section below.  Credit card n
 8. The Jog system is implemented in such a way that customers are able to have multiple accounts.  But, you can only log into accounts.  So, you can create multiple accounts under the same exact name, address, etc, but you can only log into one of them at a time.  The customer numbers will be different for record keeping purchases (because technically they are different account creation transactions but are still linked to the same person).  
 
 ############################
-##           6.           ##
+##           5.           ##
 ##     Resources Used     ##
 ##                        ##
 ############################
