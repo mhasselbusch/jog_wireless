@@ -8,10 +8,8 @@ Last Updated: 4 Jan 2017
 
 1. File Structure and File Descriptions
 2. Interface Descriptions
-3. Recommended Tests
-4. Changes to ER Design
-5. Important Information and Assumptions
-6. Resources Used
+3. Important Information and Assumptions
+4. Resources Used
 
 #1. File Structure &  File Descriptions#
 
@@ -129,7 +127,7 @@ Jog allows its customers to pay bills in-store.  The bill generation and payment
 
 Employees can create accounts for in-store customers.  The process is the same for employees as it is for online customers.  The created file would be printed by the employee and given to the customer so they can keep it for their records.
 
-# 4. Assumptions#
+# 3. Assumptions#
 
 1. Because Jog has limited technology, bills are not generated automatically and sent to customers.  Jog relies on its customers to generate and pay their bills on time.  They can do this in-store or online.
 
@@ -147,7 +145,7 @@ Employees can create accounts for in-store customers.  The process is the same f
 
 8. The Jog system is implemented in such a way that customers are able to have multiple accounts.  But, you can only log into accounts.  So, you can create multiple accounts under the same exact name, address, etc, but you can only log into one of them at a time.  The customer numbers will be different for record keeping purchases (because technically they are different account creation transactions but are still linked to the same person).  
 
-# 5. Resources Used     #
+# 4. Resources Used     #
 
 1. All data was generated using the free website mockaroo.com.  Data was generated in excel spreadsheet format and inserted into the database through SQL developer.
 
