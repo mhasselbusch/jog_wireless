@@ -13,19 +13,16 @@ Last Updated: 4 Jan 2017
 5. Important Information and Assumptions
 6. Resources Used
 
-##            1.          ##
-##     File Structure &   ##
-##    File Descriptions   ##
-##                        ##
+##1. File Structure &  File Descriptions##
 
 #######################
 ##   File Structure  ##
 #######################
 
-There are 10 .java files and a total of 16 files included in the directories.  The file structure is below.
-
-mah318hasselbusch/
-	mah318/
+jog_wireless/
+	META-INF/
+	oracle/
+	src/
 		AccountCreation.java
 		Billing.java
 		CustomerSys.java
@@ -39,67 +36,48 @@ mah318hasselbusch/
 		oracle/
 		PhonePurchase.java
 		Restock.java
-	mah318.jar
+		functionDefinitions.sql
+		tabledefinitions.sql
+		triggerDefinitions.sql
+	ER Diagram.pdf
 	Makefile
 	Manifest.txt
+	README.md
 	ojdbc6.jar
-	README.txt
-
-#######################
-## File Descriptions ##
-#######################
-
-mah318hasselbusch/ : top level directory
-
-	mah318/ : contains source code
-
-		mah318/AccountCreation.java - used to set up new jog accounts*Billing.java - used to process bills and request customer payment
-
-		mah318/Billing.java - used to process billing requests from customer and employees
-
-		mah318/CustomerSys.java - the main system for customers.  It branches off to NewCustomerSys and ExistCustomerSys
-
-		mah318/EmployeeSys.java - the main system for employees.  It directs employees off to individual interfaces
-
-		mah318/ExistCustomerSys.java - contains all interfaces for existing customers
-
-		mah318/Jog.java - main program for the software package.  Contains the main method.
-
-		mah318/Login.java - Process login requests.  Create the connection to the database.
-
-		mah318/Makefile - compiles all source code.  Run java Jog to then test the source code.
-
-		mah318/Manifest.txt - used for jar file creation
-
-		mah31/META-INF/ - JDBC files
-
-		mah318/NewCustomerSys.java - Interface for new customers.  Only allows account creation.
-
-		mah318/oracle/ - JDBC files
-
-		mah318/PhonePurchase.java - used to process phone purchases.
-		
-		mah318/Restock.java - used to process restock requests
 	
-	mah318hasselbusch/mah318.jar - main Jog Wireless application.  This will be run to test the software.
+## Source Code File Descriptions ##
 
-	mah318hasselbusch/Makefile - Make file to clean and recreate jar file.  To recreate the jar file, run a [ >cp *.java ../ ] command from within mah318/ to copy all source code over to the top-level directory.  Then, run the Makefile in the top-level directory with [ make jar ].
+	src/AccountCreation.java - used to set up new jog accounts*Billing.java - used to process bills and request customer payment
 
-	mah318hasselbusch/Manifest.txt - Used to link ojdbc6.jar to the jar file.
+	src/Billing.java - used to process billing requests from customer and employees
+	
+	src/CustomerSys.java - the main system for customers.  It branches off to NewCustomerSys and ExistCustomerSys
+	
+	src/EmployeeSys.java - the main system for employees.  It directs employees off to individual interfaces
 
-	mah318hasselbusch/ojdbc6.jar - JDBC jar file used to access the oracle database system
+	src/ExistCustomerSys.java - contains all interfaces for existing customers
 
+	src/Jog.java - main program for the software package.  Contains the main method.
 
-**It is also important to note that whenever a new account is created, whether it’s in the employee or customer side of the Jog software, a new file will be created in the top level directory.  This file functions as a receipt for the customer to keep for their records.  Therefore, there
-will be more files in the file structure as the program is tested it.  
+	src/Login.java - Process login requests.  Create the connection to the database.
+
+	src/NewCustomerSys.java - Interface for new customers.  Only allows account creation.
+
+	src/PhonePurchase.java - used to process phone purchases.
+		
+	src/Restock.java - used to process restock requests
+	
+	src/functionDefinitions.sql - definitions for all database procedures and functions
+	
+	src/tabledefinitions.sql - database schema
+	
+	src/triggerDefinitions.sql - defintions of database triggers
+
+**It is also important to note that whenever a new account is created, whether it’s in the employee or customer side of the Jog software, a new file will be created in the top level directory.  This file functions as a receipt for the customer to keep for their records.  Therefore, there will be more files in the file structure as the program is tested.  
 
 **In addition to the above files, there are 25 functions and triggers stored in the database that augment the design and complement the Java code.  
 
-############################
-##           2.           ##
-## Interface Descriptions ##
-##                        ##
-############################
+##2. Interface Descriptions ##
 
 The Jog wireless software package includes two separate interface categories (one for employees and one for customers) divided into many more for specific interfaces.
 
