@@ -19,32 +19,31 @@ Last Updated: 4 Jan 2017
 ##   File Structure  ##
 #######################
 
-jog_wireless/
-
-	META-INF/
-	oracle/
-	src/
-		AccountCreation.java
-		Billing.java
-		CustomerSys.java
-		EmployeeSys.java
-		ExistCustomerSys.java
-		Jog.java
-		Login.java
-		Makefile
+	jog_wireless/
 		META-INF/
-		NewCustomerSys.java
 		oracle/
-		PhonePurchase.java
-		Restock.java
-		functionDefinitions.sql
-		tabledefinitions.sql
-		triggerDefinitions.sql
-	ER Diagram.pdf
-	Makefile
-	Manifest.txt
-	README.md
-	ojdbc6.jar
+		src/
+			AccountCreation.java
+			Billing.java
+			CustomerSys.java
+			EmployeeSys.java
+			ExistCustomerSys.java
+			Jog.java
+			Login.java
+			Makefile
+			META-INF/
+			NewCustomerSys.java
+			oracle/
+			PhonePurchase.java
+			Restock.java
+			functionDefinitions.sql
+			tabledefinitions.sql
+			triggerDefinitions.sql
+		ER Diagram.pdf
+		Makefile
+		Manifest.txt
+		README.md
+		ojdbc6.jar
 	
 ## Source Code File Descriptions ##
 
@@ -189,12 +188,7 @@ and the source for it is included in the resources section below.  Credit card n
 
 8. The Jog system is implemented in such a way that customers are able to have multiple accounts.  But, you can only log into accounts.  So, you can create multiple accounts under the same exact name, address, etc, but you can only log into one of them at a time.  The customer numbers will be different for record keeping purchases (because technically they are different account creation transactions but are still linked to the same person).  
 
-############################
-##           5.           ##
-##     Resources Used     ##
-##                        ##
-############################
-
+##  5. Resources Used     ##
 
 1. All data was generated using the free website mockaroo.com.  Data was generated in excel spreadsheet format and inserted into the database through SQL developer.
 
