@@ -70,10 +70,6 @@ Last Updated: 4 Jan 2017
 	
 	src/triggerDefinitions.sql - defintions of database triggers
 
-**It is also important to note that whenever a new account is created, whether it’s in the employee or customer side of the Jog software, a new file will be created in the top level directory.  This file functions as a receipt for the customer to keep for their records.  Therefore, there will be more files in the file structure as the program is tested.  
-
-**In addition to the above files, there are 25 functions and triggers stored in the database that augment the design and complement the Java code.  
-
 #2. Interface Descriptions #
 
 The Jog wireless software package includes two separate interface categories (one for employees and one for customers) divided into many more for specific interfaces.
