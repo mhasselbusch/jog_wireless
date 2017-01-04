@@ -76,17 +76,17 @@ Last Updated: 4 Jan 2017
 
 **In addition to the above files, there are 25 functions and triggers stored in the database that augment the design and complement the Java code.  
 
-##2. Interface Descriptions ##
+#2. Interface Descriptions #
 
 The Jog wireless software package includes two separate interface categories (one for employees and one for customers) divided into many more for specific interfaces.
 
-#Customer Interfaces#
+##Customer Interfaces##
 
 Jog’s software supports interfaces to new and existing customers.
 
 The first thing the software asks for is a password.  This is the password for the oracle database.  There is no password functionality built into the relational design.  Make sure the right password is used.
 
-==Existing Customer Interfaces==
+###Existing Customer Interfaces###
 
 Existing customers are asked to enter their account numbers in order to log in.  From here,
 account specific tasks can be accomplished.
@@ -99,9 +99,7 @@ Customers who log into the Jog system remotely (online) have the option to view 
 
 Jog only offers two phones at this time: the Apple iPhone 6s and Samsung Galaxy S7.  The system gives the user to option to select either one and proceed with the purchase.  A random phone number and MEID is then generated and displayed to the user.  The number and MEID are compared against ones that are already in the database to ensure their uniqueness.  To proceed, a credit card number is requested.  Once again, the Luhn algorithm is implemented.  If the credit card number is valid, the system will tell the user the phone is being shipped to the address on file for that user.
 
-==========================
-==New Customer Interface==
-==========================
+###New Customer Interface###
 
 **Interface 3: Set up a new Account
 
@@ -109,11 +107,9 @@ New Jog customers can setup new accounts online.  They will be asked to enter a 
 
 Because Jog requires all new accounts have a phone attached, the system then transfers control over to the phone purchasing interface.  If the phone purchase process is successful, changes to the database will be committed and the account will be officially set up.  If it is aborted (via in-system commands, not ctrl-c), no changes to the database will be made and the account creation process will be canceled.  Jog will then log the customer out because new customers only have one option within the system (to create an account) and there is nothing else for them to do.  If an account was created, they can then log into the existing customer system.
 
-After a successful account creation, a file titled account<account_number>.text will be created in the directory that the jar file is in.  In practice, the customer would then print the file to keep for their records.
+After a successful account creation, a file titled account <account_number>.text will be created in the directory that the jar file is in.  In practice, the customer would then print the file to keep for their records.
 
-#######################
-##Employee Interfaces##
-#######################
+###Employee Interfaces###
 
 Employees who log in will be asked to enter the store id of the Jog store they are working at.  This ID will be used within the different interfaces available.
 
@@ -133,39 +129,7 @@ Jog allows its customers to pay bills in-store.  The bill generation and payment
 
 Employees can create accounts for in-store customers.  The process is the same for employees as it is for online customers.  The created file would be printed by the employee and given to the customer so they can keep it for their records.
 
-
-############################
-##            4.          ##
-##  Important Information ##
-##     and Assumptions    ##
-##                        ##
-############################
-
-
-#########################
-##Important Information##
-#########################
-
-There are many things to take note of throughout testing and running the software:
-
-1. A Makefile is included in the directory containing Java source code.  Run make clean prior to compilation
-
-2. Account creation generates a file that will be added to the directory the software resides in.
-
-3. The Luhn algorithm is used to verify credit card numbers.  This algorithm is in the public domain
-and the source for it is included in the resources section below.  Credit card numbers are NOT stored.
-
-4. This software has 7 different interfaces (some for customers, others for employees).  Code is reused throughout the interfaces for the purpose of  brevity and efficiency.  It was not necessary to create many different .java files that accomplish 99% of the same things.  The files themselves account for the differences between customer and employee users.
-
-5. This software attempts to account for unexpected kill and stop signals (ctrl-c) by only committing updates and insertions to the database at the end of the interfaces.  There may be times when kill or stop signals mess up transaction concurrency, but throughout all tests there were no outstanding transactions that prevented future use of the software.
-
-6.  It is incredibly difficult to replicate phone call data.  Because of this, many of the calls stored in Jog’s data base took place within the span of one or two days.  All of the interfaces still work without a hitch, however.  It is just important to mention specifics such as this.
-
-7. Do not run make cleanjar in the top level directory unless you want to recompile the jar file.  The instructions on how to do so are in section 1 of the README.
-
-#########################
-##     Assumptions     ##
-#########################
+# 4. Assumptions#
 
 1. Because Jog has limited technology, bills are not generated automatically and sent to customers.  Jog relies on its customers to generate and pay their bills on time.  They can do this in-store or online.
 
@@ -183,7 +147,7 @@ and the source for it is included in the resources section below.  Credit card n
 
 8. The Jog system is implemented in such a way that customers are able to have multiple accounts.  But, you can only log into accounts.  So, you can create multiple accounts under the same exact name, address, etc, but you can only log into one of them at a time.  The customer numbers will be different for record keeping purchases (because technically they are different account creation transactions but are still linked to the same person).  
 
-##  5. Resources Used     ##
+# 5. Resources Used     #
 
 1. All data was generated using the free website mockaroo.com.  Data was generated in excel spreadsheet format and inserted into the database through SQL developer.
 
