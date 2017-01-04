@@ -20,6 +20,7 @@ Last Updated: 4 Jan 2017
 #######################
 
 jog_wireless/
+
 	META-INF/
 	oracle/
 	src/
