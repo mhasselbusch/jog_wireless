@@ -13,11 +13,10 @@ Last Updated: 4 Jan 2017
 5. Important Information and Assumptions
 6. Resources Used
 
-##1. File Structure &  File Descriptions##
+#1. File Structure &  File Descriptions#
 
-#######################
 ##   File Structure  ##
-#######################
+
 
 	jog_wireless/
 		META-INF/
@@ -81,17 +80,13 @@ Last Updated: 4 Jan 2017
 
 The Jog wireless software package includes two separate interface categories (one for employees and one for customers) divided into many more for specific interfaces.
 
-#######################
-##Customer Interfaces##
-#######################
+#Customer Interfaces#
 
 Jog’s software supports interfaces to new and existing customers.
 
 The first thing the software asks for is a password.  This is the password for the oracle database.  There is no password functionality built into the relational design.  Make sure the right password is used.
 
-================================
 ==Existing Customer Interfaces==
-================================
 
 Existing customers are asked to enter their account numbers in order to log in.  From here,
 account specific tasks can be accomplished.
