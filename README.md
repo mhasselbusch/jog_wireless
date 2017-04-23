@@ -11,7 +11,7 @@ Last Updated: 4 Jan 2017
 3. Important Information and Assumptions
 4. Resources Used
 
-#1. File Structure &  File Descriptions#
+# File Structure &  File Descriptions
 
 ##   File Structure  ##
 
@@ -70,32 +70,32 @@ Last Updated: 4 Jan 2017
 	
 	src/triggerDefinitions.sql - defintions of database triggers
 
-#2. Interface Descriptions #
+# Interface Descriptions
 
 The Jog wireless software package includes two separate interface categories (one for employees and one for customers) divided into many more for specific interfaces.
 
-##Customer Interfaces##
+## Customer Interfaces
 
 Jog’s software supports interfaces to new and existing customers.
 
 The first thing the software asks for is a password.  This is the password for the oracle database.  There is no password functionality built into the relational design.  Make sure the right password is used.
 
-###Existing Customer Interfaces###
+### Existing Customer Interfaces
 
 Existing customers are asked to enter their account numbers in order to log in.  From here,
 account specific tasks can be accomplished.
 
-**Interface 1: Viewing and Paying Bills
+**Interface 1: Viewing and Paying Bills**
 
 Customers who log into the Jog system remotely (online) have the option to view and pay their bills.  These customers can generate a bill for any month since the first time a phone was activated and added to the account.  This will be at account creation time because Jog requires all accounts to have at least one phone activated and attached.  When the bill month/year is requested, the system displays the bill.  If it is unpaid, the system will ask the user if they want to pay it.  If so, a credit card number will be requested.  The Luhn algorithm is implemented within the system to ensure that a credit card number is valid.  If the number is valid, the database will be updated indicating the bill has been paid.  Users do have the option to not pay their bill.  Jog assumes its customers will pay on time at a later date if they do not pay their bill when requesting it.  
 
-**Interface 2: Purchase and Add Phone to Account
+**Interface 2: Purchase and Add Phone to Account**
 
 Jog only offers two phones at this time: the Apple iPhone 6s and Samsung Galaxy S7.  The system gives the user to option to select either one and proceed with the purchase.  A random phone number and MEID is then generated and displayed to the user.  The number and MEID are compared against ones that are already in the database to ensure their uniqueness.  To proceed, a credit card number is requested.  Once again, the Luhn algorithm is implemented.  If the credit card number is valid, the system will tell the user the phone is being shipped to the address on file for that user.
 
-###New Customer Interface###
+### New Customer Interface
 
-**Interface 3: Set up a new Account
+**Interface 3: Set up a new Account**
 
 New Jog customers can setup new accounts online.  They will be asked to enter a Name, Address, City, and State.  The only thing restricting these is the number of characters (in order to fit them in the database).  Billing plan and account types (Individual, Family, Business) are then displayed and the user is asked to select an option for each.  	
 
@@ -103,27 +103,27 @@ Because Jog requires all new accounts have a phone attached, the system then tra
 
 After a successful account creation, a file titled account <account_number>.text will be created in the directory that the jar file is in.  In practice, the customer would then print the file to keep for their records.
 
-###Employee Interfaces###
+## Employee Interfaces
 
 Employees who log in will be asked to enter the store id of the Jog store they are working at.  This ID will be used within the different interfaces available.
 
-**Interface 4: Process a restock request
+**Interface 4: Process a restock request**
 
 Jog employees can request a restock from the Jog online store.  If the user selects this option, the current stock of phones at their store will be displayed for reference.  They can then choose the phone they’d like to restock.  Because Jog stores can only keep an inventory less than 999, the system will only allow the user to order a number of phones that will not push that limit.  If the number of phones is valid, the request will be processed and the phones will be “shipped”.
 
-**Interface 5: Process a new phone purchase request (for an in-store existing customer)
+**Interface 5: Process a new phone purchase request (for an in-store existing customer)**
 
 The process is the same as it is for customers purchasing phones except for the fact that the phone purchase will be recorded under the store that the employee is logged in under (because the employee is doing the purchase and activation for a customer).
 
-**Interface 6: Process a bill payment request (for an in-store existing customer)
+**Interface 6: Process a bill payment request (for an in-store existing customer)**
 
 Jog allows its customers to pay bills in-store.  The bill generation and payment process is the same as it is for online customers except for the fact that an employee would be going through the interface, not a customer.
 
-**Interface 7: Set up a new Account for a new in-store customer
+**Interface 7: Set up a new Account for a new in-store customer**
 
 Employees can create accounts for in-store customers.  The process is the same for employees as it is for online customers.  The created file would be printed by the employee and given to the customer so they can keep it for their records.
 
-# 3. Assumptions#
+# Important Information and Assumptions
 
 1. Because Jog has limited technology, bills are not generated automatically and sent to customers.  Jog relies on its customers to generate and pay their bills on time.  They can do this in-store or online.
 
@@ -141,7 +141,7 @@ Employees can create accounts for in-store customers.  The process is the same f
 
 8. The Jog system is implemented in such a way that customers are able to have multiple accounts.  But, you can only log into accounts.  So, you can create multiple accounts under the same exact name, address, etc, but you can only log into one of them at a time.  The customer numbers will be different for record keeping purchases (because technically they are different account creation transactions but are still linked to the same person).  
 
-# 4. Resources Used     #
+# Resources Used
 
 1. All data was generated using the free website mockaroo.com.  Data was generated in excel spreadsheet format and inserted into the database through SQL developer.
 
