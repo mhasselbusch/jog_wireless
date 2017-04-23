@@ -2,7 +2,7 @@
 
 Written by: Maximilian Hasselbusch
 
-Last Updated: 4 Jan 2017
+Last Updated: 23 April 2017
 
 ##    Table of Contents   ##
 
@@ -36,11 +36,9 @@ Last Updated: 4 Jan 2017
 			functionDefinitions.sql
 			tabledefinitions.sql
 			triggerDefinitions.sql
-		ER Diagram.pdf
 		Makefile
 		Manifest.txt
 		README.md
-		ojdbc6.jar
 	
 ## Source Code File Descriptions ##
 
